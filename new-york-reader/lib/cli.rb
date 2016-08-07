@@ -3,7 +3,6 @@ require_relative "../lib/article.rb"
 
 class Cli
   attr_accessor :article_array
-  # menu?
 
   def initialize
     @article_array = Scraper.scrape_latest
@@ -28,9 +27,9 @@ class Cli
 
   def choose_summary_article
     puts "\n"
-    puts "Please enter an article number to read a summary of that article:"
+    puts "Please enter an article number to read a summary of that article, or 'all' to read summaries of all articles:"
     answer = gets.strip
-  end # for description
+  end
 
   def summary_or_article
     puts "\n"
@@ -46,30 +45,42 @@ class Cli
   end
 
   def read_summary
-    number = choose_summary_article
-    index = number.to_i - 1
-    puts "\n"
-    puts Scraper.scrape_latest[index][:title] + ", by " + Scraper.scrape_latest[index][:author]
-    puts "Published: " + Scraper.scrape_latest[index][:date_time]
-    puts Scraper.scrape_latest[index][:summary]
+    answer = choose_summary_article
+    if answer == "all"
+      summarize_all
+    else
+      index = answer.to_i - 1
+      puts "\n"
+      puts @article_array[index][:title] + ", by " + @article_array[index][:author]
+      puts "Published: " + @article_array[index][:date_time]
+      puts @article_array[index][:summary]
+    end
   end
 
   def read_article
     number = choose_read_article
     index = number.to_i - 1
-    article_url = Scraper.scrape_latest[index][:article_url]
+    article_url = @article_array[index][:article_url]
     article = Article.new(article_url)
+  end
+
+  def summarize_all
+    
+  end
+
+  def list_or_exit
+
   end
 # display numbered list of all articles with summaries
 # display numbered list of all articles with authors
 # display numbered list of all articles with summaries and authors
-# select an article by number 
-# display description of article after selected by number
-# display full text article after selected by number
+# Xselect an article by number 
+# Xdisplay description of article after selected by number
+# Xdisplay full text article after selected by number
 # launch article after selected by number
 end
 
-# module should include methods used by multiple classes (?) 
+# module should include methods used by multiple classes (?)
 
 cli = Cli.new
 cli.numbered_list
