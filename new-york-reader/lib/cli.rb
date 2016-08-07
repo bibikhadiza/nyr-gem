@@ -35,7 +35,9 @@ class Cli
 
   def summary_or_article
     puts "\n"
-    puts "Please enter 'summary' to read a summary of an article, or 'read' to read an article:"
+    puts "\n"
+    puts "Please enter 'summary' to read a summary of an article."
+    puts "Enter 'read' to read an article."
     answer = gets.strip
     if answer == "summary"
       read_summary
@@ -49,7 +51,7 @@ class Cli
     index = number.to_i - 1
     puts "\n"
     puts Scraper.scrape_latest[index][:title] + ", by " + Scraper.scrape_latest[index][:author]
-    #binding.pry
+    puts "Published: " + Scraper.scrape_latest[index][:date_time]
     puts Scraper.scrape_latest[index][:summary]
   end
 # display numbered list of all articles with summaries
