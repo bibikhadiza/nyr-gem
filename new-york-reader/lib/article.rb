@@ -21,13 +21,5 @@ class Article
     puts "\n" + "-End-"
   end
 
-  def prompt
-    puts "\n"
-    puts "Enter 'back' to return to the list of articles, or 'exit' to exit the program:"
-    answer = gets.strip
-    # new methods for if/else?
-    # if answer ==
-  end
-
 end
 

@@ -29,7 +29,7 @@ class Cli
     puts "\n"
     puts "Please enter an article number to read a summary of that article, or 'all' to read summaries of all articles:"
     answer = gets.strip
-  end
+  end # gets the axe if option to view individual summaries goes
 
   def summary_or_article
     puts "\n"
@@ -42,7 +42,7 @@ class Cli
     elsif answer == "read"
       read_article
     end
-  end
+  end # not very intuitive, think about how to change
 
   def read_summary
     answer = choose_summary_article
@@ -54,14 +54,16 @@ class Cli
       puts @article_array[index][:title] + ", by " + @article_array[index][:author]
       puts "Published: " + @article_array[index][:date_time]
       puts @article_array[index][:summary]
+      list_or_exit
     end
-  end
+  end # get rid of this and just list all summaries?
 
   def read_article
     number = choose_read_article
     index = number.to_i - 1
     article_url = @article_array[index][:article_url]
     article = Article.new(article_url)
+    list_or_exit
   end
 
   def summarize_all
@@ -71,16 +73,19 @@ class Cli
       puts "Published: " + article[:date_time]
       puts article[:summary]
     end
+    list_or_exit
   end
 
   def list_or_exit
-
+    puts "\n"
+    puts "Enter 'list' to return to the list of articles."
+    puts "Enter 'exit' to exit the program."
+    answer = gets.strip
+    if answer == "list"
+      run_nyr
+    end
   end
-# Xdisplay numbered list of all articles with summaries
-# Xselect an article by number 
-# Xdisplay description of article after selected by number
-# Xdisplay full text article after selected by number
-# launch article after selected by number
+
 end
 
 # module should include methods used by multiple classes (?)
