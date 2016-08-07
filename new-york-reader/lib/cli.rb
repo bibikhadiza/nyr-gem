@@ -6,17 +6,18 @@ class Cli
 
   def initialize
     @article_array = Scraper.scrape_latest
+    greeting
   end
 
   def greeting
     puts "\n"
     puts "Welcome to The New Yorker Reader!"
     puts "\n"
-    puts "Here are the latest articles from The New Yorker website:"
-    puts "\n"
   end
 
   def numbered_list
+    puts "Here are the latest articles from The New Yorker website:"
+    puts "\n"
     @article_array.each_with_index do |article_info, i|
       puts "#{i + 1}. #{article_info[:title]}"
     end
@@ -90,7 +91,6 @@ class Cli
   end
 
   def run_nyr
-    greeting
     numbered_list
     summary_or_article
   end

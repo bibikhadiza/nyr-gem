@@ -6,7 +6,7 @@ require 'new/york/reader/version'
 Gem::Specification.new do |spec|
   spec.name          = "new-york-reader"
   spec.version       = New::York::Reader::VERSION
-  spec.authors       = ["Bibi Khadiza"]
+  spec.authors       = ["Bibi Khadiza", "Paige Ellis"]
   spec.email         = ["limakhadiza@yahoo.com"]
 
   spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
