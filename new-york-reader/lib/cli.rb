@@ -65,15 +65,18 @@ class Cli
   end
 
   def summarize_all
-    
+    @article_array.each_with_index do |article, i|
+      puts "\n"
+      puts "#{i + 1}. " + article[:title] + ", by " + article[:author]
+      puts "Published: " + article[:date_time]
+      puts article[:summary]
+    end
   end
 
   def list_or_exit
 
   end
-# display numbered list of all articles with summaries
-# display numbered list of all articles with authors
-# display numbered list of all articles with summaries and authors
+# Xdisplay numbered list of all articles with summaries
 # Xselect an article by number 
 # Xdisplay description of article after selected by number
 # Xdisplay full text article after selected by number
