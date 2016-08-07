@@ -6,6 +6,9 @@ class Cli
 
   def initialize
     @article_array = Scraper.scrape_latest
+  end
+
+  def greeting
     puts "\n"
     puts "Welcome to The New Yorker Reader!"
     puts "\n"
@@ -86,11 +89,16 @@ class Cli
     end
   end
 
+  def run_nyr
+    greeting
+    numbered_list
+    summary_or_article
+  end
+
 end
 
 # module should include methods used by multiple classes (?)
 
 cli = Cli.new
-cli.numbered_list
-cli.summary_or_article
+cli.run_nyr # weird that list appears after list of summaries and summary of indiv article
 
