@@ -1,0 +1,9 @@
+source 'https://rubygems.org'
+
+# Specify your gem's dependencies in new-york-reader.gemspec
+gemspec
+gem 'nokogiri'
+gem 'pry'
+gem 'open-uri'
+gem 'require_all'
+gem 'launchy'
