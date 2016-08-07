@@ -31,4 +31,3 @@ class Article
 
 end
 
-Article.new("http://www.newyorker.com/culture/culture-desk/the-olympics-opening-ceremony-in-rio-let-the-games-begin")

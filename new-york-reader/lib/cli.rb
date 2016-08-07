@@ -19,20 +19,39 @@ class Cli
     end
   end
 
-  def choose_article
+  def choose_read_article
     puts "\n"
     puts "Please enter the number of the article you would like to read:"
     answer = gets.strip
     index = answer.to_i + 1
   end # for launch AND read in terminal
 
-  def choose_describe_article
+  def choose_summary_article
     puts "\n"
     puts "Please enter an article number to read a summary of that article:"
     answer = gets.strip
-    index = answer.to_i + 1
+    # index = answer.to_i + 1
   end # for description
 
+  def summary_or_article
+    puts "\n"
+    puts "Please enter 'summary' to read a summary of an article, or 'read' to read an article:"
+    answer = gets.strip
+    if answer == "summary"
+      read_summary
+    elsif answer == "read"
+      read_article
+    end
+  end
+
+  def read_summary
+    number = choose_summary_article
+    index = number.to_i - 1
+    puts "\n"
+    puts Scraper.scrape_latest[index][:title] + ", by " + Scraper.scrape_latest[index][:author]
+    #binding.pry
+    puts Scraper.scrape_latest[index][:summary]
+  end
 # display numbered list of all articles with summaries
 # display numbered list of all articles with authors
 # display numbered list of all articles with summaries and authors
@@ -46,3 +65,5 @@ end
 
 cli = Cli.new
 cli.numbered_list
+cli.summary_or_article
+

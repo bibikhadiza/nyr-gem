@@ -12,6 +12,8 @@ class Scraper
     doc.css(".posts section").each do |article|
       hash = {}
       hash[:title] = article.css("h2 a").attribute("title").value
+      hash[:author] = article.css("span h3 span").text
+      hash[:time] = nil
       hash[:summary] = article.css("p.p-summary").text
       hash[:article_url] = article.css("h2 a").attribute("href").value
       articles << hash
@@ -34,6 +36,4 @@ class Scraper
   end
   
 end
-
-Scraper.scrape_article("http://www.newyorker.com/humor/daily-shouts/variations-on-how-i-wish-conversations-with-street-canvassers-unfolded")
 
