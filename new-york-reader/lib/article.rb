@@ -8,7 +8,7 @@ class Article
     puts article[:title]
     puts "By " + article[:author]
     puts "\n"
-    puts "Published at " + article[:time] + " on " + article[:date]
+    puts "Published: " + article[:time]
     puts formatted_body(article)
     puts "\n"
   end
@@ -18,7 +18,7 @@ class Article
       puts "\n"
       puts paragraph.text
     end
-    puts "\n" + "-end-"
+    puts "\n" + "-End-"
   end
 
   def prompt

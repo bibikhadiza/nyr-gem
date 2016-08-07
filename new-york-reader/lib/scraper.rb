@@ -31,7 +31,7 @@ class Scraper
     full_text_hash[:author] = doc.css("h3 span a").text
     full_text_hash[:body] = doc.css("#articleBody.articleBody p")
     full_text_hash[:time] = doc.css("time.blog-post-date").text
-    full_text_hash[:date] = doc.css("time.blog-post-date").attribute("content").value #having trouble scraping more readable form of date
+    # full_text_hash[:date] = doc.css("time.blog-post-date").attribute("content").value #having trouble scraping more readable form of date
     full_text_hash
   end
   

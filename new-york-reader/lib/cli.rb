@@ -1,4 +1,5 @@
 require_relative "../lib/scraper.rb"
+require_relative "../lib/article.rb"
 
 class Cli
   attr_accessor :article_array
@@ -23,14 +24,12 @@ class Cli
     puts "\n"
     puts "Please enter the number of the article you would like to read:"
     answer = gets.strip
-    index = answer.to_i + 1
   end # for launch AND read in terminal
 
   def choose_summary_article
     puts "\n"
     puts "Please enter an article number to read a summary of that article:"
     answer = gets.strip
-    # index = answer.to_i + 1
   end # for description
 
   def summary_or_article
@@ -53,6 +52,13 @@ class Cli
     puts Scraper.scrape_latest[index][:title] + ", by " + Scraper.scrape_latest[index][:author]
     puts "Published: " + Scraper.scrape_latest[index][:date_time]
     puts Scraper.scrape_latest[index][:summary]
+  end
+
+  def read_article
+    number = choose_read_article
+    index = number.to_i - 1
+    article_url = Scraper.scrape_latest[index][:article_url]
+    article = Article.new(article_url)
   end
 # display numbered list of all articles with summaries
 # display numbered list of all articles with authors
