@@ -5,7 +5,7 @@ require 'pry'
 
 class Article
 
-  attr_accessor :title, :author, :date, :body, :url, :summary
+  attr_accessor :title, :author, :time, :body, :article_url, :summary
 
   @all = []
 
@@ -27,17 +27,6 @@ class Article
     end
   end
 
-  # def organized_body(num)
-  #   self.all[num].body.each do |paragraph|
-  #     puts "\n"
-  #     puts paragraph
-  #     binding.pry
-  #   end
-  # end
-  #
-  # def print
-  #   puts "#{self.title}\n #{self.author}\n\n#{self.body}"
-  # end
 
 
   def self.formatted_body(index)
