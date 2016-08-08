@@ -1,5 +1,5 @@
 require_relative "../lib/scraper.rb"
-require_relative "../lib/article.rb"
+require_relative "../lib/article.rb" # doesn't work when i try to put it in enviro?
 
 class Cli
   attr_accessor :article_array
@@ -7,11 +7,12 @@ class Cli
   def initialize
     @article_array = Scraper.scrape_latest
     greeting
+    run_nyr
   end
 
   def greeting
     puts "\n"
-    puts "Welcome to The New Yorker Reader!"
+    puts "* * * Welcome to The New Yorker Reader! * * *"
     puts "\n"
   end
 
@@ -23,47 +24,46 @@ class Cli
     end
   end
 
-  def choose_read_article
+  def choose_article
     puts "\n"
-    puts "Please enter the number of the article you would like to read:"
+    puts "Please enter the number of an article you would like to explore, or enter 'summaries' to see summaries of all articles."
+    puts "Type 'exit' to leave the program."
     answer = gets.strip
   end # for launch AND read in terminal
 
-  def choose_summary_article
-    puts "\n"
-    puts "Please enter an article number to read a summary of that article, or 'all' to read summaries of all articles:"
-    answer = gets.strip
-  end # gets the axe if option to view individual summaries goes
+  # def choose_summary_article
+  #   puts "\n"
+  #   puts "Please enter an article number to read a summary of that article, or 'all' to read summaries of all articles:"
+  #   answer = gets.strip
+  # end # gets the axe if option to view individual summaries goes
 
-  def summary_or_article
-    puts "\n"
-    puts "\n"
-    puts "Please enter 'summary' to read a summary of an article."
-    puts "Enter 'read' to read an article."
-    answer = gets.strip
-    if answer == "summary"
-      read_summary
-    elsif answer == "read"
-      read_article
-    end
-  end # not very intuitive, think about how to change
-
-  def read_summary
-    answer = choose_summary_article
-    if answer == "all"
+  def summary_or_read
+    number = choose_article
+    if number == "summaries"
       summarize_all
-    else
-      index = answer.to_i - 1
+    elsif number.to_i.between?(1,10)
       puts "\n"
-      puts @article_array[index][:title] + ", by " + @article_array[index][:author]
-      puts "Published: " + @article_array[index][:date_time]
-      puts @article_array[index][:summary]
-      list_or_exit
+      puts "Please enter 'summary' to read a summary of the article."
+      puts "Enter 'read' to read the article."
+      answer = gets.strip
+      if answer == "summary"
+        read_summary(number)
+      elsif answer == "read"
+        read_article(number)
+      end
     end
-  end # get rid of this and just list all summaries?
+  end 
 
-  def read_article
-    number = choose_read_article
+  def read_summary(number)
+    index = number.to_i - 1
+    puts "\n"
+    puts @article_array[index][:title] + ", by " + @article_array[index][:author]
+    puts "Published: " + @article_array[index][:date_time]
+    puts @article_array[index][:summary]
+    list_or_exit
+  end 
+
+  def read_article(number)
     index = number.to_i - 1
     article_url = @article_array[index][:article_url]
     article = Article.new(article_url)
@@ -82,8 +82,8 @@ class Cli
 
   def list_or_exit
     puts "\n"
-    puts "Enter 'list' to return to the list of articles."
-    puts "Enter 'exit' to exit the program."
+    puts "Enter 'list' to display the list of articles."
+    puts "Type 'exit' to exit the program."
     answer = gets.strip
     if answer == "list"
       run_nyr
@@ -92,7 +92,7 @@ class Cli
 
   def run_nyr
     numbered_list
-    summary_or_article
+    summary_or_read
   end
 
 end
@@ -100,5 +100,5 @@ end
 # module should include methods used by multiple classes (?)
 
 cli = Cli.new
-cli.run_nyr # weird that list appears after list of summaries and summary of indiv article
+
 

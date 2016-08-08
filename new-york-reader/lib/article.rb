@@ -18,7 +18,7 @@ class Article
       puts "\n"
       puts paragraph.text
     end
-    puts "\n" + "-End-"
+    puts "-End-"
   end
 
 end
