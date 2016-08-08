@@ -3,7 +3,7 @@ require_relative '../config/environment'
 class Cli
   attr_accessor :input
 
-  def run
+  def initialize
     greeting
     make_articles
     run_nyr
@@ -30,7 +30,8 @@ class Cli
 
   def choose_article
     puts "\n"
-    puts "Please enter the number of an article you would like to read, or enter 'summaries' to display article summaries."
+    puts "Please enter the number of an article you would like to read."
+    puts "Enter 'summaries' to display article summaries."
     puts "Type 'exit' to exit the program."
     gets.strip
   end # for launch AND read in terminal
@@ -40,12 +41,32 @@ class Cli
     if @input == "summaries"
       sum_one_or_all
     elsif @input.to_i.between?(1,10)
-      read_article
+      read_or_launch
     elsif @input != "exit"
       invalid
       summaries_or_read
     end
   end 
+
+  def read_or_launch
+    puts "\n"
+    puts "Enter 'read' if you would like to read this article here."
+    puts "Enter 'launch' if you would like to launch this article in your browser."
+    answer = gets.strip
+    index = @input.to_i - 1
+    if answer == "read"
+      read_article
+    elsif answer == "launch"
+      launch_article
+    else 
+      invalid
+      read_or_launch
+    end
+  end
+
+  def launch_article
+    
+  end
 
   def summary_prompt
     puts "\n"
