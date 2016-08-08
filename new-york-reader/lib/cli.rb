@@ -53,7 +53,6 @@ class Cli
     puts "Enter 'read' if you would like to read this article here."
     puts "Enter 'launch' if you would like to launch this article in your browser."
     answer = gets.strip
-    index = @input.to_i - 1
     if answer == "read"
       read_article
     elsif answer == "launch"
@@ -65,7 +64,8 @@ class Cli
   end
 
   def launch_article
-    
+    index = @input.to_i - 1
+    Launchy.open("#{Article.all[index].article_url}")
   end
 
   def summary_prompt
