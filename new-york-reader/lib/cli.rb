@@ -18,7 +18,6 @@ class Cli
   def greeting
     puts "\n"
     puts "* * * Welcome to The New Yorker Reader! * * *"
-    puts "\n"
   end
 
   def numbered_list
@@ -64,29 +63,26 @@ class Cli
   def read_summary
     index = @input.to_i - 1
     puts "\n"
-    puts @article_array[index][:title] + ", by " + @article_array[index][:author]
-    puts "Published: " + @article_array[index][:date_time]
-    puts @article_array[index][:summary]
+    puts Article.all[index].title 
+    puts Article.all[index].author
+    puts "Published: " + Article.all[index].time
+    puts Article.all[index].summary
     read_now
   end 
 
   def read_article
-    # binding.pry
     index = @input.to_i - 1
-    # binding.pry
-    Articlee.formatted_body(index)
-
-    # article_url = @article_array[index][:article_url]
-    # article = Article.new(article_url)
+    Article.formatted_body(index)
     list_or_exit
   end
 
   def summarize_all
     Article.all.each_with_index do |article, i|
       puts "\n"
-      puts "#{i + 1}. " + article. + ", by " + article[:author]
-      puts "Published: " + article[:date_time]
-      puts article[:summary]
+      puts "#{i + 1}. " + article.title
+      puts article.author
+      puts "Published: " + article.time
+      puts article.summary
     end
     read_or_exit
   end
@@ -127,10 +123,7 @@ class Cli
     summaries_or_read
   end
 
- 
 end
-
-# module should include methods used by multiple classes (?)
 
 Cli.new
 
