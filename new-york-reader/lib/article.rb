@@ -1,5 +1,3 @@
-require_relative "../lib/scraper.rb"
-
 class Article
   attr_accessor :title, :author, :body, :time, :summary, :article_url
 
@@ -25,12 +23,13 @@ class Article
     puts "\n"
     puts self.all[index].title
     puts self.all[index].author
-    puts "\n"
     puts self.all[index].time
     self.all[index].body.each do |p|
       puts "\n"
       puts p.text
     end
+    puts "\n"
+    puts "-End-"
   end
 
 end

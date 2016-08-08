@@ -1,5 +1,3 @@
-require_relative '../config/environment'
-
 class Scraper
 
   URL = "http://www.newyorker.com/latest"

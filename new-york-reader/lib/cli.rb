@@ -1,10 +1,9 @@
-require_relative "../lib/scraper.rb"
-require_relative "../lib/article.rb" # doesn't work when i try to put it in enviro?
+require_relative '../config/environment'
 
 class Cli
   attr_accessor :input
 
-  def initialize
+  def run
     greeting
     make_articles
     run_nyr
@@ -42,6 +41,9 @@ class Cli
       sum_one_or_all
     elsif @input.to_i.between?(1,10)
       read_article
+    elsif @input != "exit"
+      invalid
+      summaries_or_read
     end
   end 
 
@@ -57,6 +59,9 @@ class Cli
       summarize_all
     elsif @input.to_i.between?(1,10)
       read_summary
+    else
+      invalid
+      sum_one_or_all
     end
   end
 
@@ -94,6 +99,9 @@ class Cli
     answer = gets.strip
     if answer == "list"
       run_nyr
+    elsif answer != "exit"
+      invalid
+      list_or_exit
     end
   end
 
@@ -104,6 +112,9 @@ class Cli
     @input = gets.strip
     if @input.to_i.between?(1,10)
       read_article
+    elsif @input != "exit"
+      invalid
+      read_or_exit
     end
   end
 
@@ -115,6 +126,9 @@ class Cli
       read_article
     elsif answer == "n"
       summaries_or_read
+    else
+      invalid
+      read_now
     end
   end
 
@@ -123,8 +137,11 @@ class Cli
     summaries_or_read
   end
 
+  def invalid
+    puts "Please enter a valid command."
+  end
+
 end
 
-Cli.new
 
 
