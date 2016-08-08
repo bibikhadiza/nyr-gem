@@ -27,18 +27,31 @@ class Article
     end
   end
 
-  def organized_body(num)
-    self.all[num].body.each do |paragraph|
-      puts "\n"
-      puts paragraph
-      binding.pry
-    end
-  end
+  # def organized_body(num)
+  #   self.all[num].body.each do |paragraph|
+  #     puts "\n"
+  #     puts paragraph
+  #     binding.pry
+  #   end
+  # end
+  #
+  # def print
+  #   puts "#{self.title}\n #{self.author}\n\n#{self.body}"
+  # end
 
-  def print
-    puts "#{self.title}\n #{self.author}\n\n#{self.body}"
+
+  def self.formatted_body(index)
+    puts "\n"
+    puts self.all[index].title
+    puts self.all[index].author
+    puts self.all[index].time
+    self.all[index].body.each do |p|
+      puts "\n"
+      puts p.text
+    end
+    puts "\n"
+    puts "-End-"
   end
- 
 
 
 

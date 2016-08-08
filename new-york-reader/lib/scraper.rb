@@ -15,9 +15,9 @@ require 'open-uri'
       doc.css(".posts section").each do |article|
         hash = {}
         hash[:title] = article.css("h2 a").attribute("title").value
-        hash[:date] = article.css("time").text
+        hash[:time] = article.css("time").text
         hash[:summary] = article.css("p.p-summary").text
-        hash[:url] = article.css("h2 a").attribute("href").value
+        hash[:article_url] = article.css("h2 a").attribute("href").value
         hash[:body] = self.article_page(hash[:url])
         hash[:author] = article.css("h3 span a").text
       article_array << hash
@@ -25,8 +25,8 @@ require 'open-uri'
       article_array
     end
 
-    def self.article_page(url)
-      html = open(url)
+    def self.scrape_article(article_url)
+      html = open(article_url)
       doc = Nokogiri::HTML(html)
       doc.css("#articleBody.articleBody p")
     end

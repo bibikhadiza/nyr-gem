@@ -1,6 +1,7 @@
 
 require 'nokogiri'
 require 'open-uri'
-Bundler.require
 require 'pry'
-require_all 'lib'
+require_relative '../lib/article.rb'
+require_relative '../lib/cli.rb'
+require_relative '../lib/scraper.rb'
