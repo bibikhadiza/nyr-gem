@@ -3,42 +3,32 @@ require 'nokogiri'
 require 'open-uri'
 
 
+  class Scraper
 
-class Scraper
-
-  URL = "http://www.newyorker.com/latest"
+    URL = "http://www.newyorker.com/latest"
 
 
-  def self.latest_page
-    html = open(URL)
-    doc = Nokogiri::HTML(html)
-    articles = []
-    doc.css(".posts section").each do |article|
-      hash = {}
-    hash[:title] = article.css("h2 a").attribute("title").value
-    hash[:date] = article.css("time").text
-    hash[:summary] = article.css("p.p-summary").text
-    hash[:url] = article.css("h2 a").attribute("href").value
-    articles << hash
+    def self.latest_page
+      html = open(URL)
+      doc = Nokogiri::HTML(html)
+      article_array = []
+      doc.css(".posts section").each do |article|
+        hash = {}
+        hash[:title] = article.css("h2 a").attribute("title").value
+        hash[:date] = article.css("time").text
+        hash[:summary] = article.css("p.p-summary").text
+        hash[:url] = article.css("h2 a").attribute("href").value
+        hash[:body] = self.article_page(hash[:url])
+        hash[:author] = article.css("h3 span a").text
+      article_array << hash
+    end
+      article_array
+    end
+
+    def self.article_page(url)
+      html = open(url)
+      doc = Nokogiri::HTML(html)
+      doc.css("#articleBody.articleBody p")
+    end
+
   end
-    articles
-    binding.pry
-  end
-
-  def self.non_latest_page(url)
-    html = open(url)
-    doc = Nokogiri::HTML(html)
-    article_hash = {}
-    article_hash[:title] = doc.css("h1.title").text
-    article_hash[:author] = doc.css("h3.contributors").text
-    article_hash[:date] = doc.css("time.blog-post-date").attribute("content").value
-    article_hash[:body] = doc.css("#articleBody.articleBody p").text
-    article_hash
-  end
-  #finished scraper
-
-
-
-end
-
-Scraper.non_latest_page("http://www.newyorker.com/culture/photo-booth/seeing-beyond-the-bag-lady")
