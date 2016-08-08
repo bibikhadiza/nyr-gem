@@ -29,7 +29,7 @@ class Cli
     puts "\n"
     puts "Please enter the number of an article you would like to read, or enter 'summaries' to display article summaries."
     puts "Type 'exit' to leave the program."
-    @input = gets.strip
+    answer = gets.strip
   end # for launch AND read in terminal
 
   # def choose_summary_article
@@ -39,22 +39,37 @@ class Cli
   # end # gets the axe if option to view individual summaries goes
 
   def summaries_or_read
-    @input = choose_article
-    if @input == "summaries"
-      summarize_all
-    elsif @input.to_i.between?(1,10)
+    answer = choose_article
+    if answer == "summaries"
+      sum_one_or_all
+    elsif answer.to_i.between?(1,10)
       read_article
     end
   end 
 
-  # def read_summary
-  #   index = @input.to_i - 1
-  #   puts "\n"
-  #   puts @article_array[index][:title] + ", by " + @article_array[index][:author]
-  #   puts "Published: " + @article_array[index][:date_time]
-  #   puts @article_array[index][:summary]
-  #   read_now_or_exit
-  # end 
+  def summary_prompt
+    puts "\n"
+    puts "Enter an article number to read a summary, or enter 'all' to list summaries of all articles."
+    answer = gets.strip
+  end
+
+  def sum_one_or_all
+    answer = summary_prompt
+    if answer == "all"
+      summarize_all
+    elsif answer.to_i.between?(1,10)
+      read_summary
+    end
+  end
+
+  def read_summary
+    index = @input.to_i - 1
+    puts "\n"
+    puts @article_array[index][:title] + ", by " + @article_array[index][:author]
+    puts "Published: " + @article_array[index][:date_time]
+    puts @article_array[index][:summary]
+    read_now_or_exit
+  end 
 
   def read_article
     index = @input.to_i - 1
@@ -77,8 +92,8 @@ class Cli
     puts "\n"
     puts "Enter 'list' to display the list of articles again."
     puts "Type 'exit' to exit the program."
-    @input = gets.strip
-    if @input == "list"
+    answer = gets.strip
+    if answer == "list"
       run_nyr
     end
   end
@@ -87,22 +102,22 @@ class Cli
     puts "\n"
     puts "Enter the number of an article to read it."
     puts "Type 'exit' to leave the program."
-    @input = gets.strip
-    if @input.to_i.between?(1,10)
+    answer = gets.strip
+    if answer.to_i.between?(1,10)
       read_article
     end
   end
 
-  # def read_now_or_exit
-  #   puts "\n"
-  #   puts "Would you like to read this article, y/n?"
-  #   @input = gets.strip
-  #   if @input == "y"
-  #     read_article
-  #   elsif @input == "n"
-  #     summary_or_read
-  #   end
-  # end
+  def read_now_or_exit
+    puts "\n"
+    puts "Would you like to read this article, y/n?"
+    answer = gets.strip
+    if answer == "y"
+      read_article
+    elsif answer == "n"
+      summaries_or_read
+    end
+  end
 
   def run_nyr
     numbered_list
@@ -113,6 +128,6 @@ end
 
 # module should include methods used by multiple classes (?)
 
-cli = Cli.new
+Cli.new
 
 
