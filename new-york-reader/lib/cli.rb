@@ -66,6 +66,7 @@ class Cli
   def launch_article
     index = @input.to_i - 1
     Launchy.open("#{Article.all[index].article_url}")
+    list_or_exit
   end
 
   def summary_prompt
@@ -132,7 +133,7 @@ class Cli
     puts "Type 'exit' to exit the program."
     @input = gets.strip
     if @input.to_i.between?(1,10)
-      read_article
+      read_or_launch
     elsif @input != "exit"
       invalid
       read_or_exit
@@ -144,7 +145,7 @@ class Cli
     puts "Would you like to read this article, y/n?"
     answer = gets.strip
     if answer == "y"
-      read_article
+      read_or_launch
     elsif answer == "n"
       summaries_or_read
     else
@@ -159,6 +160,7 @@ class Cli
   end
 
   def invalid
+    puts "\n"
     puts "Please enter a valid command."
   end
 
