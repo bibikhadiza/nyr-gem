@@ -2,12 +2,17 @@ require_relative "../lib/scraper.rb"
 require_relative "../lib/article.rb" # doesn't work when i try to put it in enviro?
 
 class Cli
-  attr_accessor :article_array, :input
+  attr_accessor :input
 
   def initialize
-    @article_array = Scraper.scrape_latest
     greeting
+    make_articles
     run_nyr
+  end
+
+  def make_articles
+    article_array = Scraper.scrape_latest
+    Article.create_from_collection(article_array)
   end
 
   def greeting
@@ -20,8 +25,8 @@ class Cli
     puts "\n"
     puts "Here are the latest articles from The New Yorker website:"
     puts "\n"
-    @article_array.each_with_index do |article_info, i|
-      puts "#{i + 1}. #{article_info[:title]}"
+    Article.all.each_with_index do |article, i|
+      puts "#{i + 1}. #{article.title}"
     end
   end
 
@@ -29,7 +34,7 @@ class Cli
     puts "\n"
     puts "Please enter the number of an article you would like to read, or enter 'summaries' to display article summaries."
     puts "Type 'exit' to exit the program."
-    answer = gets.strip
+    gets.strip
   end # for launch AND read in terminal
 
   def summaries_or_read
@@ -44,7 +49,7 @@ class Cli
   def summary_prompt
     puts "\n"
     puts "Enter an article number to read a summary, or enter 'all' to display summaries of all articles."
-    answer = gets.strip
+    gets.strip
   end
 
   def sum_one_or_all
@@ -66,16 +71,20 @@ class Cli
   end 
 
   def read_article
+    # binding.pry
     index = @input.to_i - 1
-    article_url = @article_array[index][:article_url]
-    article = Article.new(article_url)
+    # binding.pry
+    Articlee.formatted_body(index)
+
+    # article_url = @article_array[index][:article_url]
+    # article = Article.new(article_url)
     list_or_exit
   end
 
   def summarize_all
-    @article_array.each_with_index do |article, i|
+    Article.all.each_with_index do |article, i|
       puts "\n"
-      puts "#{i + 1}. " + article[:title] + ", by " + article[:author]
+      puts "#{i + 1}. " + article. + ", by " + article[:author]
       puts "Published: " + article[:date_time]
       puts article[:summary]
     end
