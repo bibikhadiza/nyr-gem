@@ -1,4 +1,5 @@
 require_relative '../config/enviroment'
+require 'launchy'
 
 
 class Cli
@@ -66,7 +67,8 @@ class Cli
 
   def launch_article
     index = @input.to_i - 1
-    Launchy.open("#{Article.all[index].article_url}")
+    url = Article.all[index].article_url
+    Launchy.open(url)
     list_or_exit
   end
 
