@@ -1,5 +1,9 @@
 
 require_relative '../config/environment'
+require 'launchy'
+require 'ruby-progressbar'
+require 'colored'
+
 
 class Cli
   attr_accessor :input
@@ -23,23 +27,28 @@ class Cli
   def numbered_list
     puts "\n"
     puts "Here are the latest articles from The New Yorker website:"
+
+    progress = ProgressBar.create(:format => "%p%% %b",:progress_mark  => ".",:remainder_mark => "\u{FF65}",:starting_at => 0)
+    100.times { progress.increment; sleep 0.01 }
+
     puts "\n"
     Article.all.each_with_index do |article, i|
-      puts "#{i + 1}. #{article.title}"
+    puts "#{i + 1}. #{article.title}".blue
     end
   end
 
   def choose_article
     puts "\n"
-    puts "If you would like to read an article, enter the article number."
-    puts "You can also enter 'summaries' to look at summaries of the articles before you commit to reading."
+    puts "Please enter the number of an article you would like to read."
+    puts "Enter 'summary' to display article summary."
     puts "Type 'exit' to exit the program."
     gets.strip
-  end # for launch AND read in terminal
+  end
+
 
   def summaries_or_read
     @input = choose_article
-    if @input == "summaries"
+    if @input == "summary"
       sum_one_or_all
     elsif @input.to_i.between?(1,10)
       read_or_launch
@@ -47,7 +56,10 @@ class Cli
       invalid
       summaries_or_read
     end
-  end 
+
+  end
+
+
 
   def read_or_launch
     puts "\n"
@@ -58,17 +70,20 @@ class Cli
       read_article
     elsif answer == "launch"
       launch_article
-    else 
+    else
       invalid
       read_or_launch
     end
   end
 
+
   def launch_article
     index = @input.to_i - 1
-    Launchy.open("#{Article.all[index].article_url}")
+    url = Article.all[index].article_url
+    Launchy.open(url)
     list_or_exit
   end
+
 
   def summary_prompt
     puts "\n"
@@ -91,12 +106,13 @@ class Cli
   def read_summary
     index = @input.to_i - 1
     puts "\n"
-    puts Article.all[index].title 
+    puts Article.all[index].title
     puts Article.all[index].author
     puts "Published: " + Article.all[index].time
     puts Article.all[index].summary
     read_now
-  end 
+  end
+
 
   def read_article
     index = @input.to_i - 1
