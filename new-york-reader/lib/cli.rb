@@ -116,7 +116,8 @@ class Cli
 
   def read_article
     index = @input.to_i - 1
-    Article.formatted_body(index)
+    article = Article.all[index]
+    article.format_body
     list_or_exit
   end
 

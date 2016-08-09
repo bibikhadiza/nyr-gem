@@ -6,7 +6,7 @@ class Article
   def initialize(article_hash)
     article_hash.each {|key, value| self.send(("#{key}="), value)}
     @@all << self
-  
+
   end
 
   def self.create_from_collection(article_array)
@@ -19,14 +19,15 @@ class Article
     @@all
   end
 
-  def self.formatted_body(index)
+  def format_body
     puts "\n"
-    puts self.all[index].title
-    puts self.all[index].author
-    puts self.all[index].time
-    self.all[index].body.each do |p|
+    puts self.title
+    puts self.author
+    puts self.time
+    self.body.each do |p|
+      binding.pry
       puts "\n"
-      puts p.text
+      puts p
     end
     puts "\n"
     puts "-End-"

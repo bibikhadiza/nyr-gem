@@ -1,3 +1,6 @@
+
+
+
 class Scraper
 
   URL = "http://www.newyorker.com/latest"
@@ -5,7 +8,7 @@ class Scraper
   def self.scrape_latest
     html = open(URL)
     doc = Nokogiri::HTML(html)
-   
+
     article_array = []
     doc.css(".posts section").each do |article|
       hash = {}
@@ -18,15 +21,20 @@ class Scraper
 
       article_array << hash
     end
-    
+
     article_array
+    binding.pry
   end
 
   def self.scrape_article(article_url)
     html = open(article_url)
     doc = Nokogiri::HTML(html)
-
-    doc.css("#articleBody.articleBody p")
+    doc.css("#articleBody.articleBody p").map do |obj|
+      obj.text
+      
+    end
   end
-  
+
 end
+
+# Scraper.scrape_article("http://www.newyorker.com/news/news-desk/the-defector-who-returned-to-iran")
