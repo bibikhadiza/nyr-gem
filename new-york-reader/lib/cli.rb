@@ -30,8 +30,8 @@ class Cli
 
   def choose_article
     puts "\n"
-    puts "Please enter the number of an article you would like to read."
-    puts "Enter 'summaries' to display article summaries."
+    puts "If you would like to read an article, enter the article number."
+    puts "You can also enter 'summaries' to look at summaries of the articles before you commit to reading."
     puts "Type 'exit' to exit the program."
     gets.strip
   end # for launch AND read in terminal
@@ -71,7 +71,7 @@ class Cli
 
   def summary_prompt
     puts "\n"
-    puts "Enter an article number to read a summary, or enter 'all' to display summaries of all articles."
+    puts "Enter an article number to read a summary of it, or enter 'all' to display summaries of all articles."
     gets.strip
   end
 
@@ -147,6 +147,7 @@ class Cli
     if answer == "y"
       read_or_launch
     elsif answer == "n"
+      numbered_list
       summaries_or_read
     else
       invalid
