@@ -32,7 +32,6 @@ class Cli
   def choose_article
     puts "\n"
     puts "Please enter an article number to begin."
-    exit_prompt
     gets.strip
   end 
 
@@ -87,6 +86,11 @@ class Cli
     from_launch
   end
 
+  def from_launch
+    puts "\n"
+    run_nyr
+  end
+
   def read_summary
     index = @input.to_i - 1
     puts "\n"
@@ -96,6 +100,25 @@ class Cli
     puts Article.all[index].summary
     from_summary
   end 
+
+  def from_summary
+    puts "\n"
+    read_prompt
+    launch_prompt
+    list_prompt
+    exit_prompt
+    answer = gets.strip
+    if answer == "r"
+      read_article
+    elsif answer == "l"
+      launch_article
+    elsif answer == "list"
+      run_nyr
+    elsif answer != "exit"
+      invalid
+      from_summary
+    end
+  end
 
   def read_article
     index = @input.to_i - 1
@@ -130,30 +153,6 @@ class Cli
   #   end
   #   read_or_exit
   # end
-
-  def from_launch
-    puts "\n"
-    run_nyr
-  end
-
-  def from_summary
-    puts "\n"
-    read_prompt
-    launch_prompt
-    list_prompt
-    exit_prompt
-    answer = gets.strip
-    if answer == "r"
-      read_article
-    elsif answer == "l"
-      launch_article
-    elsif answer == "list"
-      run_nyr
-    elsif answer != "exit"
-      invalid
-      from_summary
-    end
-  end
 
   def run_nyr
     numbered_list
