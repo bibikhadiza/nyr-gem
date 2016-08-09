@@ -4,22 +4,14 @@ require_relative "scraper.rb"
 require 'pry'
 
 class Article
+  attr_accessor :title, :author, :body, :time, :summary, :article_url
 
-  attr_accessor :title, :author, :time, :body, :article_url, :summary
-
-  @all = []
-
+  @@all = []
 
   def initialize(article_hash)
-    article_hash.each {|key, value| self.send("#{key}=", value)}
-    @all << self
+    article_hash.each {|key, value| self.send(("#{key}="), value)}
+    @@all << self
   end
-
-
-  def self.all
-    @all
-  end
-
 
   def self.create_from_collection(article_array)
     article_array.each do |article_hash|
@@ -27,7 +19,9 @@ class Article
     end
   end
 
-
+  def self.all
+    @@all
+  end
 
   def self.formatted_body(index)
     puts "\n"
@@ -41,7 +35,5 @@ class Article
     puts "\n"
     puts "-End-"
   end
-
-
 
 end
