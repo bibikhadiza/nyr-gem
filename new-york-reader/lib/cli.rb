@@ -1,4 +1,3 @@
-
 require_relative '../config/environment'
 
 class Cli
@@ -10,14 +9,14 @@ class Cli
     run_nyr
   end
 
-  def greeting
-    puts "\n"
-    puts "* * * Welcome to The New Yorker Reader! * * *"
-  end
-
   def make_articles
     article_array = Scraper.scrape_latest
     Article.create_from_collection(article_array)
+  end
+
+  def greeting
+    puts "\n"
+    puts "* * * Welcome to The New Yorker Reader! * * *"
   end
 
   def numbered_list
@@ -38,6 +37,7 @@ class Cli
     summary_prompt
     read_prompt
     launch_prompt
+    hear_prompt
     exit_prompt
     gets.strip
   end
@@ -49,7 +49,7 @@ class Cli
   end
 
   def choose_menu_option
-    @input = choose_article
+    @input = choose_article # way to check if valid
     choice = menu
     if choice == "s"
       read_summary
@@ -57,10 +57,16 @@ class Cli
       read_article
     elsif choice == "l"
       launch_article
+    elsif choice == "h"
+      hear_article
     elsif choice != "exit"
       invalid
       choice
     end
+  end
+
+  def hear_prompt
+    puts "Enter 'h' to have the article read to you by a soothing voice."
   end
 
   def summary_prompt
@@ -143,6 +149,21 @@ class Cli
   end
 
   def from_launch
+    puts "\n"
+    run_nyr
+  end
+
+  def hear_article
+    index = @input.to_i - 1
+    article = Article.all[index]
+    full_article = article.title + article.author + article.body.join
+    # binding.pry
+    system "say -r 160 -v Alex -o /tmp/temp.aac \"#{full_article}\" "
+    system "open /tmp/temp.aac"
+    from_hear
+  end
+
+  def from_hear
     puts "\n"
     run_nyr
   end
