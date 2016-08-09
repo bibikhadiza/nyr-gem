@@ -32,9 +32,11 @@ class Cli
   def choose_article
     puts "\n"
     puts "Enter the number of an article you would like to explore."
-    puts "Type 'exit' to exit the program."
+    puts "Type 'exit' if you would like to exit the program."
     gets.strip
   end 
+
+
 
   def menu
     puts "\n"
@@ -42,7 +44,7 @@ class Cli
     puts "Enter 's' if you would like to see a summary of this article before committing to read it."
     puts "Enter 'r' to read the article here."
     puts "Enter 'l' to launch the article in your browser."
-    puts "Type 'exit' to exit the program."
+    puts "Type 'exit' if you would like to exit the program."
     gets.strip
   end
 
@@ -123,12 +125,28 @@ class Cli
     from_summary
   end 
 
-  # def read_article
-  #   index = @input.to_i - 1
-  #   article = Article.all[index]
-  #   article.format_body
-  #   list_or_exit
-  # end
+  def read_article
+    index = @input.to_i - 1
+    article = Article.all[index]
+    article.format_body
+    from_read
+  end
+
+  def from_read
+    puts "If you would like to launch this article in your browser, enter 'l'."
+    puts "Enter 'list' if you would like to dislay the list of latest articles again."
+    puts "Type 'exit' if you would like to exit the program."
+    answer = gets.strip
+    if answer == "l"
+      launch_article
+    elsif answer == "list"
+      numbered_list
+      choose_menu_option
+    elsif answer != "exit"
+      invalid
+      from_read
+    end
+  end
 
   # def summarize_all
   #   Article.all.each_with_index do |article, i|
@@ -144,7 +162,7 @@ class Cli
   def list_or_exit
     puts "\n"
     puts "Enter 'list' to display the list of articles again."
-    puts "Type 'exit' to exit the program."
+    puts "Type 'exit' if you would like to exit the program."
     answer = gets.strip
     if answer == "list"
       run_nyr
@@ -171,16 +189,16 @@ class Cli
     puts "\n"
     puts "If you would like to read this article, enter 'r'."
     puts "If you would like to launch this article in your browser, enter 'l'."
-    puts "To display summaries of all articles, enter 'all'."
-
+    puts "Enter 'list' to display the list of latest articles again."
+    puts "Type 'exit' if you would like to exit the program."
     answer = gets.strip
     if answer == "r"
       read_article
     elsif answer == "l"
       launch_article
-    elsif answer == "all"
-      
-    else
+    elsif answer == "list"
+      numbered_list
+    elsif answer != "exit"
       invalid
       from_summary
     end

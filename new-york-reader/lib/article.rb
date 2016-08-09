@@ -19,7 +19,7 @@ class Article
     @@all
   end
 
-  def self.formatted_body(index)
+  def format_body
     puts "\n"
     puts self.all[index].title
     puts self.all[index].author
