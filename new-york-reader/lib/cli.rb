@@ -28,10 +28,18 @@ class Cli
     end
   end
 
+  def menu
+    puts "\n"
+    puts "-Menu-"
+    puts "Enter 's' for a summary of the article before reading it."
+    puts "Enter 'r' to read this article here."
+    puts "Enter 'l' to launch this article in your browser."
+    puts "Type 'exit' to exit the program."
+  end
+
   def choose_article
     puts "\n"
-    puts "If you would like to read an article, enter the article number."
-    puts "You can also enter 'summaries' to look at summaries of the articles before you commit to reading."
+    puts "Enter the number of an article that you would like to explore."
     puts "Type 'exit' to exit the program."
     gets.strip
   end # for launch AND read in terminal
