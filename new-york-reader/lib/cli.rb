@@ -31,20 +31,38 @@ class Cli
 
   def choose_article
     puts "\n"
-    puts "Enter the number of an article you would like to explore."
-    puts "Type 'exit' if you would like to exit the program."
+    puts "Please enter an article number to begin."
+    exit_prompt
     gets.strip
   end 
 
+  def summary_prompt
+    puts "Enter 's' if you would like to see a summary of this article."
+  end
 
+  def r_prompt
+    puts "Enter 'r' to read this article here."
+  end
+
+  def launch_prompt
+    puts "Enter 'l' to launch this article in your browser."
+  end
+
+  def exit_prompt
+    puts "Type 'exit' if you would like to exit the program."
+  end
+
+  def list_prompt
+    puts "Enter 'list' to display a list of the latest articles again."
+  end
 
   def menu
     puts "\n"
     puts "-Menu-"
-    puts "Enter 's' if you would like to see a summary of this article before committing to read it."
-    puts "Enter 'r' to read the article here."
-    puts "Enter 'l' to launch the article in your browser."
-    puts "Type 'exit' if you would like to exit the program."
+    summary_prompt
+    r_prompt
+    launch_prompt
+    exit_prompt
     gets.strip
   end
 
@@ -63,57 +81,11 @@ class Cli
     end
   end
 
-
-  # def summaries_or_read
-  #   @input = choose_article
-  #   if @input == "summaries"
-  #     sum_one_or_all
-  #   elsif @input.to_i.between?(1,10)
-  #     read_or_launch
-  #   elsif @input != "exit"
-  #     invalid
-  #     summaries_or_read
-  #   end
-  # end 
-
-  # def read_or_launch
-  #   puts "\n"
-  #   puts "Enter 'read' if you would like to read this article here."
-  #   puts "Enter 'launch' if you would like to launch this article in your browser."
-  #   answer = gets.strip
-  #   if answer == "read"
-  #     read_article
-  #   elsif answer == "launch"
-  #     launch_article
-  #   else 
-  #     invalid
-  #     read_or_launch
-  #   end
-  # end
-
   def launch_article
     index = @input.to_i - 1
     Launchy.open("#{Article.all[index].article_url}")
-    list_or_exit
+    from_launch
   end
-
-  # def summary_prompt
-  #   puts "\n"
-  #   puts "Enter an article number to read a summary of it, or enter 'all' to display summaries of all articles."
-  #   gets.strip
-  # end
-
-  # def sum_one_or_all
-  #   @input = summary_prompt
-  #   if @input == "all"
-  #     summarize_all
-  #   elsif @input.to_i.between?(1,10)
-  #     read_summary
-  #   else
-  #     invalid
-  #     sum_one_or_all
-  #   end
-  # end
 
   def read_summary
     index = @input.to_i - 1
@@ -133,9 +105,10 @@ class Cli
   end
 
   def from_read
-    puts "If you would like to launch this article in your browser, enter 'l'."
-    puts "Enter 'list' if you would like to dislay the list of latest articles again."
-    puts "Type 'exit' if you would like to exit the program."
+    puts "\n"
+    launch_prompt
+    list_prompt
+    exit_prompt
     answer = gets.strip
     if answer == "l"
       launch_article
@@ -159,38 +132,25 @@ class Cli
   #   read_or_exit
   # end
 
-  def list_or_exit
+  def from_launch
     puts "\n"
-    puts "Enter 'list' to display the list of articles again."
-    puts "Type 'exit' if you would like to exit the program."
+    list_prompt
+    exit_prompt
     answer = gets.strip
     if answer == "list"
       run_nyr
     elsif answer != "exit"
       invalid
-      list_or_exit
+      from_launch
     end
   end
 
-  # def read_or_exit
-  #   puts "\n"
-  #   puts "Enter the number of an article to read it."
-  #   puts "Type 'exit' to exit the program."
-  #   @input = gets.strip
-  #   if @input.to_i.between?(1,10)
-  #     read_or_launch
-  #   elsif @input != "exit"
-  #     invalid
-  #     read_or_exit
-  #   end
-  # end
-
   def from_summary
     puts "\n"
-    puts "If you would like to read this article, enter 'r'."
-    puts "If you would like to launch this article in your browser, enter 'l'."
-    puts "Enter 'list' to display the list of latest articles again."
-    puts "Type 'exit' if you would like to exit the program."
+    r_prompt
+    launch_prompt
+    list_prompt
+    exit_prompt
     answer = gets.strip
     if answer == "r"
       read_article
@@ -198,6 +158,7 @@ class Cli
       launch_article
     elsif answer == "list"
       numbered_list
+      choose_menu_option
     elsif answer != "exit"
       invalid
       from_summary
