@@ -25,7 +25,7 @@ class Article
     puts self.author
     puts self.time
     self.body.each do |p|
-      binding.pry
+      # binding.pry
       puts "\n"
       puts p
     end

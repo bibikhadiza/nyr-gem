@@ -41,9 +41,11 @@ class Cli
     puts "\n"
     puts "Please enter the number of an article you would like to read."
     puts "Enter 'summary' to display article summary."
+    puts "Enter the number of an article you would like to explore."
     puts "Type 'exit' to exit the program."
     gets.strip
   end
+
 
 
   def summaries_or_read
@@ -56,10 +58,7 @@ class Cli
       invalid
       summaries_or_read
     end
-
   end
-
-
 
   def read_or_launch
     puts "\n"
@@ -102,6 +101,7 @@ class Cli
       sum_one_or_all
     end
   end
+
 
   def read_summary
     index = @input.to_i - 1

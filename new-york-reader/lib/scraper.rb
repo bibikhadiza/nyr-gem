@@ -23,7 +23,7 @@ class Scraper
     end
 
     article_array
-    binding.pry
+  
   end
 
   def self.scrape_article(article_url)
@@ -31,7 +31,7 @@ class Scraper
     doc = Nokogiri::HTML(html)
     doc.css("#articleBody.articleBody p").map do |obj|
       obj.text
-      
+
     end
   end
 
