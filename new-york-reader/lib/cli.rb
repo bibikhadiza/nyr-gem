@@ -27,7 +27,6 @@ class Cli
   def run_nyr
     numbered_list
     choose_menu_option
-    puts "Please enter a valid command."
   end
 
 
@@ -49,7 +48,6 @@ class Cli
   def choose_article
     puts "\n"
     puts "Please enter an article number to begin."
-    exit_prompt
     gets.strip
   end
 
