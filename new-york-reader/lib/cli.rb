@@ -1,10 +1,12 @@
 require_relative '../config/enviroment'
 require 'launchy'
 require 'ruby-progressbar'
+require 'colored'
 
 
 
 class Cli
+
   attr_accessor :input
 
   def initialize
@@ -26,11 +28,12 @@ class Cli
   def numbered_list
     puts "\n"
     puts "Here are the latest articles from The New Yorker website:"
-    progress = ProgressBar.create(:format => "%p%% %b",:progress_mark  => "-",:remainder_mark => "\u{FF65}",:starting_at => 0)
+    progress = ProgressBar.create(:format => "%p%% %b",:progress_mark  => ".",:remainder_mark => "\u{FF65}",:starting_at => 0)
     100.times { progress.increment; sleep 0.01 }
+
     puts "\n"
     Article.all.each_with_index do |article, i|
-      puts "#{i + 1}. #{article.title}"
+      puts "#{i + 1}. #{article.title}".blue
     end
   end
 
@@ -40,7 +43,7 @@ class Cli
     puts "Enter 'summaries' to display article summaries."
     puts "Type 'exit' to exit the program."
     gets.strip
-  end # for launch AND read in terminal
+  end
 
   def summaries_or_read
     @input = choose_article
