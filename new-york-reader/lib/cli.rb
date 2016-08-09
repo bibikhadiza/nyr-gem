@@ -33,10 +33,19 @@ class Cli
     end
   end
 
+  def menu
+    puts "\n"
+    summary_prompt
+    read_prompt
+    launch_prompt
+    hear_prompt
+    exit_prompt
+    gets.strip
+  end
+
   def choose_article
     puts "\n"
     puts "Please enter an article number to begin."
-    exit_prompt
     gets.strip
   end
 
@@ -47,12 +56,18 @@ class Cli
       read_summary
     elsif choice == "r"
       read_article
-    elsif answer == "l"
+    elsif choice == "l"
       launch_article
-    else
+    elsif choice == "h"
+      hear_article
+    elsif choice != "exit"
       invalid
       choice
     end
+  end
+
+  def hear_prompt
+    puts "Enter 'h' to have the article read to you by a soothing voice."
   end
 
   def summary_prompt
@@ -129,12 +144,26 @@ class Cli
 
   def launch_article
     index = @input.to_i - 1
-    url = Article.all[index].article_url
-    Launchy.open(url)
+    article = Article.all[index]
+    Launchy.open(article.article_url)
     from_launch
   end
 
   def from_launch
+    puts "\n"
+    run_nyr
+  end
+
+  def hear_article
+    index = @input.to_i - 1
+    article = Article.all[index]
+    full_article = article.title + article.author + article.body.join(",")
+    system "say -r 160 -v Alex -o /tmp/temp.aac \"#{full_article}\" "
+    system "open /tmp/temp.aac"
+    from_hear
+  end
+
+  def from_hear
     puts "\n"
     run_nyr
   end
