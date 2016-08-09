@@ -103,6 +103,7 @@ class Cli
     puts "\n"
     read_prompt
     launch_prompt
+    hear_prompt
     list_prompt
     exit_prompt
     answer = gets.strip
@@ -110,6 +111,8 @@ class Cli
       read_article
     elsif answer == "l"
       launch_article
+    elsif answer == "h"
+      hear_article
     elsif answer == "list"
       run_nyr
     elsif answer != "exit"
@@ -157,7 +160,6 @@ class Cli
     index = @input.to_i - 1
     article = Article.all[index]
     full_article = article.title + article.author + article.body.join
-    # binding.pry
     system "say -r 160 -v Alex -o /tmp/temp.aac \"#{full_article}\" "
     system "open /tmp/temp.aac"
     from_hear
