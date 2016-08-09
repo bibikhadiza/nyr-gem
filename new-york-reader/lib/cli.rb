@@ -1,5 +1,5 @@
 
-require_relative '../config/enviroment'
+require_relative '../config/environment'
 require 'launchy'
 require 'ruby-progressbar'
 require 'colored'
