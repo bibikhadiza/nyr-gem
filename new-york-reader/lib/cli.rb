@@ -14,14 +14,19 @@ class Cli
     run_nyr
   end
 
+  def greeting
+    puts "\n"
+    puts "* * * Welcome to The New Yorker Reader! * * *"
+  end
+
   def make_articles
     article_array = Scraper.scrape_latest
     Article.create_from_collection(article_array)
   end
 
-  def greeting
-    puts "\n"
-    puts "* * * Welcome to The New Yorker Reader! * * *"
+  def run_nyr
+    numbered_list
+    summaries_or_read
   end
 
   def numbered_list
@@ -37,17 +42,6 @@ class Cli
     end
   end
 
-  def choose_article
-    puts "\n"
-    puts "Please enter the number of an article you would like to read."
-    puts "Enter 'summary' to display article summary."
-    puts "Enter the number of an article you would like to explore."
-    puts "Type 'exit' to exit the program."
-    gets.strip
-  end
-
-
-
   def summaries_or_read
     @input = choose_article
     if @input == "summary"
@@ -60,33 +54,13 @@ class Cli
     end
   end
 
-  def read_or_launch
+
+  def choose_article
     puts "\n"
-    puts "Enter 'read' if you would like to read this article here."
-    puts "Enter 'launch' if you would like to launch this article in your browser."
-    answer = gets.strip
-    if answer == "read"
-      read_article
-    elsif answer == "launch"
-      launch_article
-    else
-      invalid
-      read_or_launch
-    end
-  end
-
-
-  def launch_article
-    index = @input.to_i - 1
-    url = Article.all[index].article_url
-    Launchy.open(url)
-    list_or_exit
-  end
-
-
-  def summary_prompt
-    puts "\n"
-    puts "Enter an article number to read a summary of it, or enter 'all' to display summaries of all articles."
+    puts "Please enter the number of an article you would like to read."
+    puts "Enter 'summary' to display article summary."
+    puts "Enter the number of an article you would like to explore."
+    puts "Type 'exit' to exit the program."
     gets.strip
   end
 
@@ -103,6 +77,14 @@ class Cli
   end
 
 
+  def summary_prompt
+    puts "\n"
+    puts "Enter an article number to read a summary of it, or enter 'all' to display summaries of all articles."
+    gets.strip
+  end
+
+
+
   def read_summary
     index = @input.to_i - 1
     puts "\n"
@@ -114,12 +96,37 @@ class Cli
   end
 
 
+
+  def read_or_launch
+    puts "\n"
+    puts "Enter 'read' if you would like to read this article here."
+    puts "Enter 'launch' if you would like to launch this article in your browser."
+    answer = gets.strip
+    if answer == "read"
+      read_article
+    elsif answer == "launch"
+      launch_article
+    else
+      invalid
+      read_or_launch
+    end
+  end
+
   def read_article
     index = @input.to_i - 1
     article = Article.all[index]
     article.format_body
     list_or_exit
   end
+
+
+  def launch_article
+    index = @input.to_i - 1
+    url = Article.all[index].article_url
+    Launchy.open(url)
+    list_or_exit
+  end
+
 
   def summarize_all
     Article.all.each_with_index do |article, i|
@@ -182,5 +189,16 @@ class Cli
     puts "\n"
     puts "Please enter a valid command."
   end
+
+
+
+
+
+
+
+
+
+
+
 
 end
