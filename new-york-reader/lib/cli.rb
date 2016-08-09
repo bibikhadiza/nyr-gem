@@ -5,16 +5,6 @@ require 'ruby-progressbar'
 require 'colored'
 
 
-
-
-class Cli
-
-  attr_accessor :input
-
-
-
-require_relative '../config/environment'
-
 class Cli
   attr_accessor :input
 
@@ -43,12 +33,7 @@ class Cli
 
     puts "\n"
     Article.all.each_with_index do |article, i|
-      puts "#{i + 1}. #{article.title}".blue
-
-    puts "\n"
-    Article.all.each_with_index do |article, i|
-      puts "#{i + 1}. #{article.title}"
-
+    puts "#{i + 1}. #{article.title}".blue
     end
   end
 
@@ -59,12 +44,6 @@ class Cli
     puts "Type 'exit' to exit the program."
     gets.strip
   end
-
-    puts "If you would like to read an article, enter the article number."
-    puts "You can also enter 'summaries' to look at summaries of the articles before you commit to reading."
-    puts "Type 'exit' to exit the program."
-    gets.strip
-  end # for launch AND read in terminal
 
 
   def summaries_or_read
@@ -80,7 +59,6 @@ class Cli
 
   end
 
-  end
 
 
   def read_or_launch
@@ -92,17 +70,13 @@ class Cli
       read_article
     elsif answer == "launch"
       launch_article
-<<<<<<< HEAD
     else
-=======
-    else
->>>>>>> ceac9c05c18738524d71baa93a085d5bac6b28fd
       invalid
       read_or_launch
     end
   end
 
-<<<<<<< HEAD
+
   def launch_article
     index = @input.to_i - 1
     url = Article.all[index].article_url
@@ -113,17 +87,12 @@ class Cli
   def summary_prompt
     puts "\n"
     puts "Enter an article number to read a summary, or enter 'all' to display summaries of all articles."
-=======
-  # def launch_article
-  #   index = @input.to_i - 1
-  #   Launchy.open("#{Article.all[index].article_url}")
-  #   list_or_exit
-  # end
+  end
+
 
   def summary_prompt
     puts "\n"
     puts "Enter an article number to read a summary of it, or enter 'all' to display summaries of all articles."
->>>>>>> ceac9c05c18738524d71baa93a085d5bac6b28fd
     gets.strip
   end
 
@@ -142,20 +111,13 @@ class Cli
   def read_summary
     index = @input.to_i - 1
     puts "\n"
-<<<<<<< HEAD
     puts Article.all[index].title
-=======
-    puts Article.all[index].title
->>>>>>> ceac9c05c18738524d71baa93a085d5bac6b28fd
     puts Article.all[index].author
     puts "Published: " + Article.all[index].time
     puts Article.all[index].summary
     read_now
-<<<<<<< HEAD
   end
-=======
-  end
->>>>>>> ceac9c05c18738524d71baa93a085d5bac6b28fd
+
 
   def read_article
     index = @input.to_i - 1
@@ -207,10 +169,7 @@ class Cli
     if answer == "y"
       read_or_launch
     elsif answer == "n"
-<<<<<<< HEAD
-=======
       numbered_list
->>>>>>> ceac9c05c18738524d71baa93a085d5bac6b28fd
       summaries_or_read
     else
       invalid
@@ -229,9 +188,3 @@ class Cli
   end
 
 end
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> ceac9c05c18738524d71baa93a085d5bac6b28fd

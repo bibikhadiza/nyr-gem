@@ -4,8 +4,8 @@ require_relative "../lib/scraper.rb"
 require_relative "scraper.rb"
 require 'pry'
 
-=======
->>>>>>> ceac9c05c18738524d71baa93a085d5bac6b28fd
+
+
 class Article
   attr_accessor :title, :author, :body, :time, :summary, :article_url
 
@@ -14,10 +14,6 @@ class Article
   def initialize(article_hash)
     article_hash.each {|key, value| self.send(("#{key}="), value)}
     @@all << self
-<<<<<<< HEAD
-=======
-  
->>>>>>> ceac9c05c18738524d71baa93a085d5bac6b28fd
   end
 
   def self.create_from_collection(article_array)
@@ -44,7 +40,3 @@ class Article
   end
 
 end
-<<<<<<< HEAD
-=======
-
->>>>>>> ceac9c05c18738524d71baa93a085d5bac6b28fd
