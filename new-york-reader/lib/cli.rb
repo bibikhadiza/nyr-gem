@@ -14,15 +14,22 @@ class Cli
     run_nyr
   end
 
+  def greeting
+    puts "\n"
+    puts "* * * Welcome to The New Yorker Reader! * * *"
+  end
+
   def make_articles
     article_array = Scraper.scrape_latest
     Article.create_from_collection(article_array)
   end
 
-  def greeting
-    puts "\n"
-    puts "* * * Welcome to The New Yorker Reader! * * *"
+  def run_nyr
+    numbered_list
+    choose_menu_option
+    puts "Please enter a valid command."
   end
+
 
   def numbered_list
     puts "\n"
@@ -33,47 +40,98 @@ class Cli
 
     puts "\n"
     Article.all.each_with_index do |article, i|
-    puts "#{i + 1}. #{article.title}".blue
+      puts "#{i + 1}. #{article.title}"
     end
   end
 
+
+
   def choose_article
     puts "\n"
-    puts "Please enter the number of an article you would like to read."
-    puts "Enter 'summaries' to display article summaries."
-    puts "Type 'exit' to exit the program."
+    puts "Please enter an article number to begin."
+    exit_prompt
     gets.strip
   end
 
 
-  def summaries_or_read
-    @input = choose_article
-    if @input == "summaries"
-      sum_one_or_all
-    elsif @input.to_i.between?(1,10)
-      read_or_launch
-    elsif @input != "exit"
-      invalid
-      summaries_or_read
-    end
-
+  def menu
+    summary_prompt
+    read_prompt
+    launch_prompt
+    gets.strip
   end
 
 
-
-  def read_or_launch
-    puts "\n"
-    puts "Enter 'read' if you would like to read this article here."
-    puts "Enter 'launch' if you would like to launch this article in your browser."
-    answer = gets.strip
-    if answer == "read"
+  def choose_menu_option
+    @input = choose_article
+    choice = menu
+    if choice == "s"
+      read_summary
+    elsif choice == "r"
       read_article
-    elsif answer == "launch"
+    elsif choice == "l"
       launch_article
     else
       invalid
-      read_or_launch
+      choice
     end
+  end
+
+  def summary_prompt
+    puts "Enter 's' if you would like to see a summary of this article."
+  end
+
+  def read_prompt
+    puts "Enter 'r' to read this article here."
+  end
+
+  def launch_prompt
+    puts "Enter 'l' to launch this article in your browser."
+  end
+
+  def exit_prompt
+    puts "Type 'exit' if you would like to exit the program."
+  end
+
+  def list_prompt
+    puts "Enter 'list' to display a list of the latest articles again."
+  end
+
+  def read_summary
+    index = @input.to_i - 1
+    puts "\n"
+    puts Article.all[index].title
+    puts Article.all[index].author
+    puts "Published: " + Article.all[index].time
+    puts Article.all[index].summary
+    from_summary
+  end
+
+ def from_summary
+    puts "\n"
+    read_prompt
+    launch_prompt
+    list_prompt
+    exit_prompt
+    answer = gets.strip
+    if answer == "r"
+      read_article
+    elsif answer == "l"
+      launch_article
+    elsif answer == "list"
+      run_nyr
+    elsif answer != "exit"
+      invalid
+      from_summary
+    end
+  end
+
+
+  def read_article
+    index = @input.to_i - 1
+    article = Article.all[index]
+    article.format_body
+    from_read
   end
 
 
@@ -84,46 +142,6 @@ class Cli
     list_or_exit
   end
 
-  def summary_prompt
-    puts "\n"
-    puts "Enter an article number to read a summary, or enter 'all' to display summaries of all articles."
-  end
-
-
-  def summary_prompt
-    puts "\n"
-    puts "Enter an article number to read a summary of it, or enter 'all' to display summaries of all articles."
-    gets.strip
-  end
-
-  def sum_one_or_all
-    @input = summary_prompt
-    if @input == "all"
-      summarize_all
-    elsif @input.to_i.between?(1,10)
-      read_summary
-    else
-      invalid
-      sum_one_or_all
-    end
-  end
-
-  def read_summary
-    index = @input.to_i - 1
-    puts "\n"
-    puts Article.all[index].title
-    puts Article.all[index].author
-    puts "Published: " + Article.all[index].time
-    puts Article.all[index].summary
-    read_now
-  end
-
-
-  def read_article
-    index = @input.to_i - 1
-    Article.formatted_body(index)
-    list_or_exit
-  end
 
   def summarize_all
     Article.all.each_with_index do |article, i|
@@ -133,58 +151,34 @@ class Cli
       puts "Published: " + article.time
       puts article.summary
     end
-    read_or_exit
   end
 
-  def list_or_exit
+  def from_read
     puts "\n"
-    puts "Enter 'list' to display the list of articles again."
-    puts "Type 'exit' to exit the program."
+    launch_prompt
+    list_prompt
+    exit_prompt
     answer = gets.strip
-    if answer == "list"
+    if answer == "l"
+      launch_article
+    elsif answer == "list"
       run_nyr
     elsif answer != "exit"
       invalid
-      list_or_exit
+      from_read
     end
   end
 
-  def read_or_exit
+  def from_launch
     puts "\n"
-    puts "Enter the number of an article to read it."
-    puts "Type 'exit' to exit the program."
-    @input = gets.strip
-    if @input.to_i.between?(1,10)
-      read_or_launch
-    elsif @input != "exit"
-      invalid
-      read_or_exit
-    end
+    run_nyr
   end
 
-  def read_now
-    puts "\n"
-    puts "Would you like to read this article, y/n?"
-    answer = gets.strip
-    if answer == "y"
-      read_or_launch
-    elsif answer == "n"
-      numbered_list
-      summaries_or_read
-    else
-      invalid
-      read_now
-    end
-  end
-
-  def run_nyr
-    numbered_list
-    summaries_or_read
-  end
 
   def invalid
     puts "\n"
     puts "Please enter a valid command."
   end
+
 
 end
