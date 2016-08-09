@@ -5,9 +5,11 @@ require 'colored'
 
 
 
+
 class Cli
 
   attr_accessor :input
+
 
   def initialize
     greeting
