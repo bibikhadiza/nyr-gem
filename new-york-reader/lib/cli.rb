@@ -1,9 +1,6 @@
 
-require_relative '../config/environment'
-require 'launchy'
-require 'ruby-progressbar'
-require 'colored'
 
+require_relative '../config/environment'
 
 class Cli
   attr_accessor :input
@@ -26,8 +23,10 @@ class Cli
 
   def run_nyr
     numbered_list
-    summaries_or_read
+    choose_menu_option
+    puts "Please enter a valid command."
   end
+
 
   def numbered_list
     puts "\n"
@@ -38,52 +37,62 @@ class Cli
 
     puts "\n"
     Article.all.each_with_index do |article, i|
-    puts "#{i + 1}. #{article.title}".blue
+      puts "#{i + 1}. #{article.title}"
     end
   end
 
-  def summaries_or_read
-    @input = choose_article
-    if @input == "summary"
-      sum_one_or_all
-    elsif @input.to_i.between?(1,10)
-      read_or_launch
-    elsif @input != "exit"
-      invalid
-      summaries_or_read
-    end
-  end
 
 
   def choose_article
     puts "\n"
-    puts "Please enter the number of an article you would like to read."
-    puts "Enter 'summary' to display article summary."
-    puts "Enter the number of an article you would like to explore."
-    puts "Type 'exit' to exit the program."
+    puts "Please enter an article number to begin."
+    exit_prompt
     gets.strip
   end
 
-  def sum_one_or_all
-    @input = summary_prompt
-    if @input == "all"
-      summarize_all
-    elsif @input.to_i.between?(1,10)
+
+  def menu
+    summary_prompt
+    read_prompt
+    launch_prompt
+    gets.strip
+  end
+
+
+  def choose_menu_option
+    @input = choose_article
+    choice = menu
+    if choice == "s"
       read_summary
+    elsif choice == "r"
+      read_article
+    elsif choice == "l"
+      launch_article
     else
       invalid
-      sum_one_or_all
+      choice
     end
   end
 
-
   def summary_prompt
-    puts "\n"
-    puts "Enter an article number to read a summary of it, or enter 'all' to display summaries of all articles."
-    gets.strip
+    puts "Enter 's' if you would like to see a summary of this article."
   end
 
+  def read_prompt
+    puts "Enter 'r' to read this article here."
+  end
 
+  def launch_prompt
+    puts "Enter 'l' to launch this article in your browser."
+  end
+
+  def exit_prompt
+    puts "Type 'exit' if you would like to exit the program."
+  end
+
+  def list_prompt
+    puts "Enter 'list' to display a list of the latest articles again."
+  end
 
   def read_summary
     index = @input.to_i - 1
@@ -92,31 +101,34 @@ class Cli
     puts Article.all[index].author
     puts "Published: " + Article.all[index].time
     puts Article.all[index].summary
-    read_now
+    from_summary
   end
 
-
-
-  def read_or_launch
+ def from_summary
     puts "\n"
-    puts "Enter 'read' if you would like to read this article here."
-    puts "Enter 'launch' if you would like to launch this article in your browser."
+    read_prompt
+    launch_prompt
+    list_prompt
+    exit_prompt
     answer = gets.strip
-    if answer == "read"
+    if answer == "r"
       read_article
-    elsif answer == "launch"
+    elsif answer == "l"
       launch_article
-    else
+    elsif answer == "list"
+      run_nyr
+    elsif answer != "exit"
       invalid
-      read_or_launch
+      from_summary
     end
   end
+
 
   def read_article
     index = @input.to_i - 1
     article = Article.all[index]
     article.format_body
-    list_or_exit
+    from_read
   end
 
 
@@ -136,69 +148,34 @@ class Cli
       puts "Published: " + article.time
       puts article.summary
     end
-    read_or_exit
   end
 
-  def list_or_exit
+  def from_read
     puts "\n"
-    puts "Enter 'list' to display the list of articles again."
-    puts "Type 'exit' to exit the program."
+    launch_prompt
+    list_prompt
+    exit_prompt
     answer = gets.strip
-    if answer == "list"
+    if answer == "l"
+      launch_article
+    elsif answer == "list"
       run_nyr
     elsif answer != "exit"
       invalid
-      list_or_exit
+      from_read
     end
   end
 
-  def read_or_exit
+  def from_launch
     puts "\n"
-    puts "Enter the number of an article to read it."
-    puts "Type 'exit' to exit the program."
-    @input = gets.strip
-    if @input.to_i.between?(1,10)
-      read_or_launch
-    elsif @input != "exit"
-      invalid
-      read_or_exit
-    end
+    run_nyr
   end
 
-  def read_now
-    puts "\n"
-    puts "Would you like to read this article, y/n?"
-    answer = gets.strip
-    if answer == "y"
-      read_or_launch
-    elsif answer == "n"
-      numbered_list
-      summaries_or_read
-    else
-      invalid
-      read_now
-    end
-  end
-
-  def run_nyr
-    numbered_list
-    summaries_or_read
-  end
 
   def invalid
     puts "\n"
     puts "Please enter a valid command."
   end
-
-
-
-
-
-
-
-
-
-
 
 
 end
