@@ -27,7 +27,6 @@ class Scraper
     doc = Nokogiri::HTML(html)
 
     doc.css("#articleBody.articleBody p").map do |obj|
-      binding.pry
       obj.text
     end
   end
