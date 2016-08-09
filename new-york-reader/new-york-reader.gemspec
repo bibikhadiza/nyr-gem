@@ -9,9 +9,15 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Bibi Khadiza", "Paige Ellis"]
   spec.email         = ["limakhadiza@yahoo.com"]
 
+<<<<<<< HEAD
   spec.summary       = %q{Displays the most recent articles from The New Yorker website}
   spec.description   = %q{Displays the most recent articles from The New Yorker website}
   spec.homepage      = "http://github.com/bibikhadiza/nyr-gem"
+=======
+  spec.summary       = %q{Read the latest articles from the New Yorker}
+  spec.description   = %q{Allows the user to read acticles in terminal and launch the article}
+  spec.homepage      = "https://github.com/bibikhadiza/nyr-gem"
+>>>>>>> c18ddc8110e93f22b6d8d47aacb30cbf83db19ea
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
