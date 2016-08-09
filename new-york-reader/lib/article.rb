@@ -25,7 +25,10 @@ class Article
     puts self.author
     puts self.time
     self.body.each do |p|
+<<<<<<< HEAD
       # binding.pry
+=======
+>>>>>>> paige
       puts "\n"
       puts p
     end
