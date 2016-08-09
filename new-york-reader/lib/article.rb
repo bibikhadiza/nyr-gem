@@ -6,7 +6,7 @@ class Article
   def initialize(article_hash)
     article_hash.each {|key, value| self.send(("#{key}="), value)}
     @@all << self
-  
+
   end
 
   def self.create_from_collection(article_array)
@@ -25,10 +25,6 @@ class Article
     puts self.author
     puts self.time
     self.body.each do |p|
-<<<<<<< HEAD
-      # binding.pry
-=======
->>>>>>> paige
       puts "\n"
       puts p
     end

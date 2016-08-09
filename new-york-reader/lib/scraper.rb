@@ -5,7 +5,7 @@ class Scraper
   def self.scrape_latest
     html = open(URL)
     doc = Nokogiri::HTML(html)
-   
+
     article_array = []
     doc.css(".posts section").each do |article|
       hash = {}
@@ -18,17 +18,17 @@ class Scraper
 
       article_array << hash
     end
-    
+
     article_array
   end
 
   def self.scrape_article(article_url)
     html = open(article_url)
     doc = Nokogiri::HTML(html)
-
     doc.css("#articleBody.articleBody p").map do |obj|
       obj.text
     end
   end
-  
+
 end
+
