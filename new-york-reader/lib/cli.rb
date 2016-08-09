@@ -40,7 +40,7 @@ class Cli
     puts "Enter 's' if you would like to see a summary of this article."
   end
 
-  def r_prompt
+  def read_prompt
     puts "Enter 'r' to read this article here."
   end
 
@@ -60,7 +60,7 @@ class Cli
     puts "\n"
     puts "-Menu-"
     summary_prompt
-    r_prompt
+    read_prompt
     launch_prompt
     exit_prompt
     gets.strip
@@ -69,13 +69,13 @@ class Cli
   def choose_menu_option
     @input = choose_article # way to check if valid
     choice = menu
-    if choice == 's'
+    if choice == "s"
       read_summary
-    elsif choice == 'r'
+    elsif choice == "r"
       read_article
-    elsif choice == 'l'
+    elsif choice == "l"
       launch_article
-    elsif choice != 'exit'
+    elsif choice != "exit"
       invalid
       choose_option
     end
@@ -113,8 +113,7 @@ class Cli
     if answer == "l"
       launch_article
     elsif answer == "list"
-      numbered_list
-      choose_menu_option
+      run_nyr
     elsif answer != "exit"
       invalid
       from_read
@@ -134,20 +133,12 @@ class Cli
 
   def from_launch
     puts "\n"
-    list_prompt
-    exit_prompt
-    answer = gets.strip
-    if answer == "list"
-      run_nyr
-    elsif answer != "exit"
-      invalid
-      from_launch
-    end
+    run_nyr
   end
 
   def from_summary
     puts "\n"
-    r_prompt
+    read_prompt
     launch_prompt
     list_prompt
     exit_prompt
@@ -157,8 +148,7 @@ class Cli
     elsif answer == "l"
       launch_article
     elsif answer == "list"
-      numbered_list
-      choose_menu_option
+      run_nyr
     elsif answer != "exit"
       invalid
       from_summary
