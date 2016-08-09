@@ -44,7 +44,7 @@ class Cli
 
   def choose_article
     puts "\n"
-    puts "Please enter an article number to begin."
+    puts "Please enter an article number."
     gets.strip
   end
 
@@ -61,7 +61,7 @@ class Cli
       hear_article
     elsif choice != "exit"
       invalid
-      choice
+      choose_menu_option
     end
   end
 
