@@ -72,11 +72,11 @@ class Cli
     end
   end
 
-  # def launch_article
-  #   index = @input.to_i - 1
-  #   Launchy.open("#{Article.all[index].article_url}")
-  #   list_or_exit
-  # end
+  def launch_article
+    index = @input.to_i - 1
+    Launchy.open("#{Article.all[index].article_url}")
+    list_or_exit
+  end
 
   def summary_prompt
     puts "\n"
