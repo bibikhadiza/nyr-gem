@@ -1,6 +1,6 @@
 # New::York::Reader
 
-Welcome to The New Yorker Reader! View the latest articles from The New Yorker! With this gem you can read articles, summaries of articles, or you can launch articles in your browser.
+Welcome to The New Yorker Reader! Read the latest articles from The New Yorker! With this gem you can read articles, read summaries of articles, launch articles in your browser, or have articles read to you by a soothing voice.
 
 
 ## Installation
