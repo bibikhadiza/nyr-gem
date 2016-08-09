@@ -3,13 +3,5 @@ source 'https://rubygems.org'
 gem 'nokogiri'
 gem 'pry'
 gem 'open-uri'
-<<<<<<< HEAD
-gem 'require_all'
 gem 'launchy', '~> 2.4', '>= 2.4.3'
-gem 'ruby-progressbar', '~> 1.8', '>= 1.8.1'
-gem 'command_line_reporter'
-gem 'colored', '~> 1.2'
-=======
-gem 'launchy'
-gem 'command_line_reporter'
->>>>>>> ceac9c05c18738524d71baa93a085d5bac6b28fd
+# gem 'ruby-progressbar', '~> 1.8', '>= 1.8.1'
