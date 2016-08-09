@@ -26,7 +26,10 @@ class Scraper
     html = open(article_url)
     doc = Nokogiri::HTML(html)
 
-    doc.css("#articleBody.articleBody p")
+    doc.css("#articleBody.articleBody p").map do |obj|
+      binding.pry
+      obj.text
+    end
   end
   
 end

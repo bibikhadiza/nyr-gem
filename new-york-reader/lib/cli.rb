@@ -35,7 +35,7 @@ class Cli
     puts "You can also enter 'summaries' to look at summaries of the articles before you commit to reading."
     puts "Type 'exit' to exit the program."
     gets.strip
-  end # for launch AND read in terminal
+  end 
 
   def summaries_or_read
     @input = choose_article
@@ -100,7 +100,8 @@ class Cli
 
   def read_article
     index = @input.to_i - 1
-    Article.formatted_body(index)
+    article = Article.all[index]
+    article.format_body
     list_or_exit
   end
 
