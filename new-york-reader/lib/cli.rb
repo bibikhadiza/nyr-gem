@@ -53,7 +53,7 @@ class Cli
     @input = choose_article
     until @input.to_i.between?(1,10)
       invalid
-      @input = choose_article
+      @input = choose_article #remember that you have to record the user input
     end
     choice = menu
     if choice == "s"
@@ -131,7 +131,7 @@ class Cli
   def read_article
     index = @input.to_i - 1
     article = Article.all[index]
-    article.format_body
+    format_body(article)
     from_read
   end
 
@@ -180,17 +180,6 @@ class Cli
     run_nyr
   end
 
-  # def summarize_all
-  #   Article.all.each_with_index do |article, i|
-  #     puts "\n"
-  #     puts "#{i + 1}. " + article.title
-  #     puts article.author
-  #     puts "Published: " + article.time
-  #     puts article.summary
-  #   end
-  #   read_or_exit
-  # end
-
   def run_nyr
     numbered_list
     choose_menu_option
@@ -199,6 +188,19 @@ class Cli
   def invalid
     puts "\n"
     puts "Enter a valid command."
+  end
+
+  def format_body(article)
+    puts "\n"
+    puts article.title
+    puts article.author
+    puts article.time
+    article.body.each do |p|
+      puts "\n"
+      puts p
+    end
+    puts "\n"
+    puts "- End -"
   end
 
 end

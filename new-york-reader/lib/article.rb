@@ -19,17 +19,4 @@ class Article
     @@all
   end
 
-  def format_body
-    puts "\n"
-    puts self.title
-    puts self.author
-    puts self.time
-    self.body.each do |p|
-      puts "\n"
-      puts p
-    end
-    puts "\n"
-    puts "- End -"
-  end
-
 end
