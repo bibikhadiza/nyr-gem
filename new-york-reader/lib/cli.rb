@@ -190,14 +190,14 @@ class Cli
     puts "Enter a valid command."
   end
 
-  def format_body(article)
-    puts "\n"
-    puts article.title
-    puts article.author
-    puts article.time
-    article.body.each do |p|
-      puts "\n"
-      puts p
+  def format_body(article) #we made our format_body method into a cli method
+    puts "\n"               #because it is that cli's job to format that article
+    puts article.title      #in our read_article method we assigned article to
+    puts article.author      #a given object in our article class variable and now
+    puts article.time       #our format_body knows that its argument is the new hash in
+    article.body.each do |p|    #in the Article class variable
+      puts "\n"              #remember we cant use self to call on this method anymore
+      puts p              #because it would refer to the cli class and every instance of the class instead
     end
     puts "\n"
     puts "- End -"
