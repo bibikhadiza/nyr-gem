@@ -1,8 +1,5 @@
 
 require_relative '../config/environment'
-require 'launchy'
-require 'ruby-progressbar'
-require 'colored'
 
 
 class Cli
