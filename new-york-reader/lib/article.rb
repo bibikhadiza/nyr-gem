@@ -29,7 +29,7 @@ class Article
       puts p
     end
     puts "\n"
-    puts "-End-"
+    puts "- End -"
   end
 
 end

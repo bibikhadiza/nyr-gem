@@ -34,6 +34,7 @@ class Cli
 
   def menu
     puts "\n"
+    puts "- Menu -"
     summary_prompt
     read_prompt
     launch_prompt
@@ -66,7 +67,7 @@ class Cli
   end
 
   def hear_prompt
-    puts "Enter 'h' to have the article read to you by a soothing voice."
+    puts "Enter 'h' to hear the article in a soothing voice."
   end
 
   def summary_prompt
@@ -131,11 +132,14 @@ class Cli
   def from_read
     puts "\n"
     launch_prompt
+    hear_prompt
     list_prompt
     exit_prompt
     answer = gets.strip
     if answer == "l"
       launch_article
+    elsif answer == "h"
+      hear_article
     elsif answer == "list"
       run_nyr
     elsif answer != "exit"
