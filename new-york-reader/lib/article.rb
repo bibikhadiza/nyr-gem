@@ -28,7 +28,7 @@ class Article
 
   def format_body
       puts "\n"
-      puts self.title
+      puts self.title  #it is the Cli's responsibilty to parse the article
       puts self.author
       puts self.time
       self.body.each do |p|

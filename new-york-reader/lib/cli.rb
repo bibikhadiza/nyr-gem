@@ -3,7 +3,7 @@ require_relative '../config/environment'
 
 
 class Cli
-  attr_accessor :input
+
 
   def initialize
     greeting
@@ -60,6 +60,7 @@ class Cli
 
   def choose_menu_option
     @input = choose_article
+
     choice = menu #choice is a var tht stores the return value of menu which is the user input
     if choice == "s"
       read_summary
@@ -127,7 +128,6 @@ class Cli
   def read_article
     index = @input.to_i - 1
     article = Article.all[index]
-    article.format_body
     from_read
   end
 
@@ -147,6 +147,7 @@ class Cli
       puts article.author
       puts "Published: " + article.time
       puts article.summary
+      puts
     end
   end
 
