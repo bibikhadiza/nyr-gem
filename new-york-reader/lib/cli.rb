@@ -50,7 +50,11 @@ class Cli
   end
 
   def choose_menu_option
-    @input = choose_article # way to check if valid
+    @input = choose_article
+    until @input.to_i.between?(1,10)
+      invalid
+      @input = choose_article
+    end
     choice = menu
     if choice == "s"
       read_summary
@@ -192,7 +196,7 @@ class Cli
 
   def invalid
     puts "\n"
-    puts "Please enter a valid command."
+    puts "Enter a valid command."
   end
 
 end
