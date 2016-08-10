@@ -9,6 +9,8 @@ To Install the gem, type the following in your terminal:
 
 gem install nyr
 
+The following is a video walkthrough of the gem: https://youtu.be/AtJ552ZpdMU
+
 
 ## Development
 This gem is proudly made by Paige and Bibi!
