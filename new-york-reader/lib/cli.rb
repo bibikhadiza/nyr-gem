@@ -39,6 +39,7 @@ class Cli
     read_prompt
     launch_prompt
     hear_prompt
+    list_prompt
     exit_prompt
     gets.strip
   end
@@ -64,6 +65,8 @@ class Cli
       launch_article
     elsif choice == "h"
       hear_article
+    elsif choice == "list"
+      run_nyr
     elsif choice != "exit"
       invalid
       choose_menu_option
@@ -91,7 +94,7 @@ class Cli
   end
 
   def list_prompt
-    puts "Enter 'list' to display a list of the latest articles again."
+    puts "Enter 'list' to choose a different article from the list."
   end
 
   def read_summary
