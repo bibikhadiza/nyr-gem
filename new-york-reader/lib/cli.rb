@@ -131,7 +131,7 @@ class Cli
   def read_article
     index = @input.to_i - 1
     article = Article.all[index]
-    article.format_body
+    format_body(article)
     from_read
   end
 
@@ -199,6 +199,19 @@ class Cli
   def invalid
     puts "\n"
     puts "Enter a valid command."
+  end
+
+  def format_body(article)
+    puts "\n"
+    puts article.title
+    puts article.author
+    puts article.time
+    article.body.each do |p|
+      puts "\n"
+      puts p
+    end
+    puts "\n"
+    puts "- End -"
   end
 
 end
