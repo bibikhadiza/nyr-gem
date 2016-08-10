@@ -1,7 +1,6 @@
 require_relative '../config/environment'
 
 class Cli
-  attr_accessor :input
 
   def initialize
     greeting
