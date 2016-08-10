@@ -74,11 +74,11 @@ class Cli
   end
 
   def hear_prompt
-    puts "Enter 'h' to hear the article in a soothing voice."
+    puts "Enter 'h' to hear this article in a soothing voice."
   end
 
   def summary_prompt
-    puts "Enter 's' if you would like to see a summary of this article."
+    puts "Enter 's' to see a summary of this article."
   end
 
   def read_prompt
