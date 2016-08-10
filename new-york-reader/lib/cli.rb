@@ -56,24 +56,26 @@ class Cli
     summary_prompt
     read_prompt
     launch_prompt
+    exit_prompt
     gets.strip
   end
 
 
   def choose_menu_option
     @input = choose_article
-    choice = menu
+    choice = menu #choice is a var tht stores the return value of menu which is the user input
     if choice == "s"
       read_summary
     elsif choice == "r"
       read_article
     elsif choice == "l"
       launch_article
-    else
+    elsif choice != 'exit'
       invalid
-      choice
+      choose_menu_option
     end
   end
+
 
   def summary_prompt
     puts "Enter 's' if you would like to see a summary of this article."
@@ -102,7 +104,7 @@ class Cli
     puts Article.all[index].author
     puts "Published: " + Article.all[index].time
     puts Article.all[index].summary
-    from_summary
+    from_summary #keeps programming from closing. remember this is how our cli works!
   end
 
  def from_summary
@@ -137,7 +139,7 @@ class Cli
     index = @input.to_i - 1
     url = Article.all[index].article_url
     Launchy.open(url)
-    list_or_exit
+    from_launch
   end
 
 
@@ -179,4 +181,4 @@ class Cli
   end
 
 
-end
+ end
