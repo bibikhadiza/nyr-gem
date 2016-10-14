@@ -4,7 +4,7 @@ class Scraper
 
   def self.scrape_latest
     html = open(URL)
-    doc = Nokogiri::HTML(html)
+    doc = Nokogiri::HTML(html, nil, "UTF-8")
 
     article_array = []
     doc.css(".posts section").each do |article|
@@ -31,4 +31,3 @@ class Scraper
   end
 
 end
-
