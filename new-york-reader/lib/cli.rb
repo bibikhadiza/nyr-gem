@@ -46,19 +46,19 @@ class Cli
   def choose_article
     puts "\n"
     puts "Please enter an article number."
+    exit_prompt
     gets.strip
   end
 
   def choose_menu_option
     @input = choose_article
-    # if @input != "exit"
-    until @input.to_i.between?(1,10)
+    until @input.to_i.between?(1,10) || @input == "exit"
       invalid
       @input = choose_article
     end
-    # else
-    #   exit(1)
-    # end
+    if @input == "exit"
+      exit(1)
+    end
     choice = menu
     if choice == "s"
       read_summary
